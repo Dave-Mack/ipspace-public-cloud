@@ -2,7 +2,7 @@
 ***
 
 ## Assignment 
-Define requirements for a deployment of a new solution in a public clould
+Define requirements for a deployment of a new solution in a public cloud
 
 ## Responses
 
