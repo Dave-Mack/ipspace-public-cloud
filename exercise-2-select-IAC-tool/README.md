@@ -7,6 +7,6 @@ environment before finally destroying it.
 
 There are three files in this directory
 
-README.md - This file
-Assignment-2.md - Screen output from my assignment
-main.tf - The Terraform file I used for this assignment
+* README.md - This file
+* Assignment-2.md - Screen output from my assignment
+* main.tf - The Terraform file I used for this assignment
