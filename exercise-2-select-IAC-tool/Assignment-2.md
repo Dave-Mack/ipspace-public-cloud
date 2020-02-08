@@ -12,7 +12,7 @@ the VPC and subnet and created the infrastructure again.
 
 ## Initial Terraform file
 
-<code>
+```
 provider "aws" {
   region = "us-east-1"
 }
@@ -31,11 +31,11 @@ resource "aws_instance" "simple" {
   instance_type = "t2.micro"
   subnet_id = aws_subnet.basic_subnet.id
 }
-</code>
+```
 
 ### Terraform Apply
 
-<code>exercise2$ terraform apply
+```exercise2$ terraform apply
 
 An execution plan has been generated and is shown below.
 Resource actions are indicated with the following symbols:
@@ -43,7 +43,7 @@ Resource actions are indicated with the following symbols:
 
 Terraform will perform the following actions:
 
-  \# aws_instance.simple will be created
+  # aws_instance.simple will be created
   + resource "aws_instance" "simple" {
       + ami                          = "ami-40d28157"
       + arn                          = (known after apply)
@@ -109,7 +109,7 @@ Terraform will perform the following actions:
         }
     }
 
-  \# aws_subnet.basic_subnet will be created
+  # aws_subnet.basic_subnet will be created
   + resource "aws_subnet" "basic_subnet" {
       + arn                             = (known after apply)
       + assign_ipv6_address_on_creation = false
@@ -124,7 +124,7 @@ Terraform will perform the following actions:
       + vpc_id                          = (known after apply)
     }
 
-  \# aws_vpc.basic will be created
+  # aws_vpc.basic will be created
   + resource "aws_vpc" "basic" {
       + arn                              = (known after apply)
       + assign_generated_ipv6_cidr_block = false
@@ -163,12 +163,14 @@ aws_instance.simple: Still creating... [20s elapsed]
 aws_instance.simple: Still creating... [30s elapsed]
 aws_instance.simple: Creation complete after 32s [id=i-0a1db44053c207c2c]
 
-Apply complete! Resources: 3 added, 0 changed, 0 destroyed.</code>
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+```
 
 ### Terrraform show
 
-<code>exercise2$ terraform show
-\# aws_instance.simple:
+```
+exercise2$ terraform show
+# aws_instance.simple:
 resource "aws_instance" "simple" {
     ami                          = "ami-40d28157"
     arn                          = "arn:aws:ec2:us-east-1:396946667626:instance/i-0a1db44053c207c2c"
@@ -211,7 +213,7 @@ resource "aws_instance" "simple" {
     }
 }
 
-\# aws_subnet.basic_subnet:
+# aws_subnet.basic_subnet:
 resource "aws_subnet" "basic_subnet" {
     arn                             = "arn:aws:ec2:us-east-1:396946667626:subnet/subnet-09f1c1fbba8190428"
     assign_ipv6_address_on_creation = false
@@ -224,7 +226,7 @@ resource "aws_subnet" "basic_subnet" {
     vpc_id                          = "vpc-005c91122308a957f"
 }
 
-\# aws_vpc.basic:
+# aws_vpc.basic:
 resource "aws_vpc" "basic" {
     arn                              = "arn:aws:ec2:us-east-1:396946667626:vpc/vpc-005c91122308a957f"
     assign_generated_ipv6_cidr_block = false
@@ -241,11 +243,13 @@ resource "aws_vpc" "basic" {
     instance_tenancy                 = "default"
     main_route_table_id              = "rtb-05a5ea1cd0953b4ec"
     owner_id                         = "396946667626"
-}</code>
+}
+```
 
 ### Terraform destroy 
 
-<code>exercise2$ terraform destroy
+```
+exercise2$ terraform destroy
 aws_vpc.basic: Refreshing state... [id=vpc-005c91122308a957f]
 aws_subnet.basic_subnet: Refreshing state... [id=subnet-09f1c1fbba8190428]
 aws_instance.simple: Refreshing state... [id=i-0a1db44053c207c2c]
@@ -256,7 +260,7 @@ Resource actions are indicated with the following symbols:
 
 Terraform will perform the following actions:
 
-  \# aws_instance.simple will be destroyed
+  # aws_instance.simple will be destroyed
   - resource "aws_instance" "simple" {
       - ami                          = "ami-40d28157" -> null
       - arn                          = "arn:aws:ec2:us-east-1:396946667626:instance/i-0a1db44053c207c2c" -> null
@@ -300,7 +304,7 @@ Terraform will perform the following actions:
         }
     }
 
-  \# aws_subnet.basic_subnet will be destroyed
+  # aws_subnet.basic_subnet will be destroyed
   - resource "aws_subnet" "basic_subnet" {
       - arn                             = "arn:aws:ec2:us-east-1:396946667626:subnet/subnet-09f1c1fbba8190428" -> null
       - assign_ipv6_address_on_creation = false -> null
@@ -314,7 +318,7 @@ Terraform will perform the following actions:
       - vpc_id                          = "vpc-005c91122308a957f" -> null
     }
 
-  \# aws_vpc.basic will be destroyed
+  # aws_vpc.basic will be destroyed
   - resource "aws_vpc" "basic" {
       - arn                              = "arn:aws:ec2:us-east-1:396946667626:vpc/vpc-005c91122308a957f" -> null
       - assign_generated_ipv6_cidr_block = false -> null
@@ -351,12 +355,13 @@ aws_subnet.basic_subnet: Destruction complete after 1s
 aws_vpc.basic: Destroying... [id=vpc-005c91122308a957f]
 aws_vpc.basic: Destruction complete after 0s
 
-Destroy complete! Resources: 3 destroyed.</code>
+Destroy complete! Resources: 3 destroyed.
+```
 
 ## Modified Terrafrom file with new CIDR blocks
 
 
-<code>
+```
 provider "aws" {
   region = "us-east-1"
 }
@@ -375,11 +380,12 @@ resource "aws_instance" "simple" {
   instance_type = "t2.micro"
   subnet_id = aws_subnet.basic_subnet.id
 }
-</code>
+```
 
 ### Terraform apply
 
-<code>exercise2$ terraform apply
+```
+exercise2$ terraform apply
 
 An execution plan has been generated and is shown below.
 Resource actions are indicated with the following symbols:
@@ -387,7 +393,7 @@ Resource actions are indicated with the following symbols:
 
 Terraform will perform the following actions:
 
-  \# aws_instance.simple will be created
+  # aws_instance.simple will be created
   + resource "aws_instance" "simple" {
       + ami                          = "ami-40d28157"
       + arn                          = (known after apply)
@@ -453,7 +459,7 @@ Terraform will perform the following actions:
         }
     }
 
-  \# aws_subnet.basic_subnet will be created
+  # aws_subnet.basic_subnet will be created
   + resource "aws_subnet" "basic_subnet" {
       + arn                             = (known after apply)
       + assign_ipv6_address_on_creation = false
@@ -468,7 +474,7 @@ Terraform will perform the following actions:
       + vpc_id                          = (known after apply)
     }
 
-  \# aws_vpc.basic will be created
+  # aws_vpc.basic will be created
   + resource "aws_vpc" "basic" {
       + arn                              = (known after apply)
       + assign_generated_ipv6_cidr_block = false
@@ -509,10 +515,12 @@ aws_instance.simple: Creation complete after 33s [id=i-0009d7ff9db0ca6da]
 
 Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 
-### Terraform show demonstrating new CIDR blocks in use.</code>
+### Terraform show demonstrating new CIDR blocks in use.
+```
 
-<code>exercise2$ terraform show
-\# aws_instance.simple:
+```
+exercise2$ terraform show
+# aws_instance.simple:
 resource "aws_instance" "simple" {
     ami                          = "ami-40d28157"
     arn                          = "arn:aws:ec2:us-east-1:396946667626:instance/i-0009d7ff9db0ca6da"
@@ -555,7 +563,7 @@ resource "aws_instance" "simple" {
     }
 }
 
-\# aws_subnet.basic_subnet:
+# aws_subnet.basic_subnet:
 resource "aws_subnet" "basic_subnet" {
     arn                             = "arn:aws:ec2:us-east-1:396946667626:subnet/subnet-0b39330072032211d"
     assign_ipv6_address_on_creation = false
@@ -568,7 +576,7 @@ resource "aws_subnet" "basic_subnet" {
     vpc_id                          = "vpc-09299e894452e73e8"
 }
 
-\# aws_vpc.basic:
+# aws_vpc.basic:
 resource "aws_vpc" "basic" {
     arn                              = "arn:aws:ec2:us-east-1:396946667626:vpc/vpc-09299e894452e73e8"
     assign_generated_ipv6_cidr_block = false
@@ -585,11 +593,13 @@ resource "aws_vpc" "basic" {
     instance_tenancy                 = "default"
     main_route_table_id              = "rtb-08d1c2d282a7e15fe"
     owner_id                         = "396946667626"
-}</code>
+}
+```
 
 ### Terraform destroy
 
-<code>exercise2$ terraform destroy
+```
+exercise2$ terraform destroy
 aws_vpc.basic: Refreshing state... [id=vpc-09299e894452e73e8]
 aws_subnet.basic_subnet: Refreshing state... [id=subnet-0b39330072032211d]
 aws_instance.simple: Refreshing state... [id=i-0009d7ff9db0ca6da]
@@ -600,7 +610,7 @@ Resource actions are indicated with the following symbols:
 
 Terraform will perform the following actions:
 
-  \# aws_instance.simple will be destroyed
+  # aws_instance.simple will be destroyed
   - resource "aws_instance" "simple" {
       - ami                          = "ami-40d28157" -> null
       - arn                          = "arn:aws:ec2:us-east-1:396946667626:instance/i-0009d7ff9db0ca6da" -> null
@@ -644,7 +654,7 @@ Terraform will perform the following actions:
         }
     }
 
-  \# aws_subnet.basic_subnet will be destroyed
+  # aws_subnet.basic_subnet will be destroyed
   - resource "aws_subnet" "basic_subnet" {
       - arn                             = "arn:aws:ec2:us-east-1:396946667626:subnet/subnet-0b39330072032211d" -> null
       - assign_ipv6_address_on_creation = false -> null
@@ -658,7 +668,7 @@ Terraform will perform the following actions:
       - vpc_id                          = "vpc-09299e894452e73e8" -> null
     }
 
-  \# aws_vpc.basic will be destroyed
+  # aws_vpc.basic will be destroyed
   - resource "aws_vpc" "basic" {
       - arn                              = "arn:aws:ec2:us-east-1:396946667626:vpc/vpc-09299e894452e73e8" -> null
       - assign_generated_ipv6_cidr_block = false -> null
@@ -695,7 +705,8 @@ aws_subnet.basic_subnet: Destruction complete after 0s
 aws_vpc.basic: Destroying... [id=vpc-09299e894452e73e8]
 aws_vpc.basic: Destruction complete after 0s
 
-Destroy complete! Resources: 3 destroyed.</code>
+Destroy complete! Resources: 3 destroyed.
+```
 
 
 
