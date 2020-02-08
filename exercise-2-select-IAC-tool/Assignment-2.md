@@ -367,12 +367,12 @@ provider "aws" {
 }
 
 resource "aws_vpc" "basic" {
-  cidr_block = **"172.16.0.0/16"**
+  cidr_block = "172.16.0.0/16"
 }
 
 resource "aws_subnet" "basic_subnet" {
   vpc_id = aws_vpc.basic.id
-  cidr_block = **"172.16.1.0/24"**
+  cidr_block = "172.16.1.0/24"
 }
 
 resource "aws_instance" "simple" {
