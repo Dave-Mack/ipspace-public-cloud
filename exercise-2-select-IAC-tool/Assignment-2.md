@@ -539,7 +539,7 @@ resource "aws_instance" "simple" {
     monitoring                   = false
     primary_network_interface_id = "eni-097d4001d8fef3042"
     private_dns                  = "ip-172-16-1-219.ec2.internal"
-    private_ip                   = **"172.16.1.219"**
+    private_ip                   = "172.16.1.219"
     security_groups              = []
     source_dest_check            = true
     subnet_id                    = "subnet-0b39330072032211d"
@@ -569,7 +569,7 @@ resource "aws_subnet" "basic_subnet" {
     assign_ipv6_address_on_creation = false
     availability_zone               = "us-east-1a"
     availability_zone_id            = "use1-az4"
-    cidr_block                      = **"172.16.1.0/24"**
+    cidr_block                      = "172.16.1.0/24"
     id                              = "subnet-0b39330072032211d"
     map_public_ip_on_launch         = false
     owner_id                        = "396946667626"
@@ -580,7 +580,7 @@ resource "aws_subnet" "basic_subnet" {
 resource "aws_vpc" "basic" {
     arn                              = "arn:aws:ec2:us-east-1:396946667626:vpc/vpc-09299e894452e73e8"
     assign_generated_ipv6_cidr_block = false
-    cidr_block                       = **"172.16.0.0/16"**
+    cidr_block                       = "172.16.0.0/16"
     default_network_acl_id           = "acl-05363ecde4704a7c9"
     default_route_table_id           = "rtb-08d1c2d282a7e15fe"
     default_security_group_id        = "sg-06702e16e5413a607"
