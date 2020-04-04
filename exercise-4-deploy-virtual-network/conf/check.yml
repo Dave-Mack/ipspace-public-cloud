@@ -1,0 +1,78 @@
+- name: Validate Public SSH on Web Server and Jump Server
+  hosts: web_svr,jump_svr
+  become: True
+  gather_facts: no
+  tasks:
+      - name:
+        wait_for:
+          host: '{{ ansible_ssh_host }}'
+          port: 22
+          timeout: 5
+
+- name: Validate Web Server listening on Port 80
+  hosts: web_svr
+  become: True
+  gather_facts: no
+  tasks:
+      - name:
+        wait_for:
+          host: '{{ ansible_ssh_host }}'
+          port: 80
+          timeout: 5
+
+- name: Private App Server is reachable vi Jump Server
+  hosts: app_svr
+  become: True
+  gather_facts: no
+  tasks:
+      - name:
+        wait_for:
+          host: '{{ ansible_ssh_host }}'
+          port: 22
+          timeout: 5
+
+- name: Attempt to ping Cisco from App Server
+  hosts: app_svr
+  become: True
+  gather_facts: no
+  tasks:
+      - name:
+        command: /bin/ping www.cisco.com -c5
+        ignore_errors: yes
+        
+- name: Attempt to ping Google's IPv6 Address from Web Server
+  hosts: web_svr
+  become: True
+  gather_facts: no
+  tasks:
+      - name:
+        command: /bin/ping6 2607:f8b0:4004:805::2004 -c5
+
+- name: Attempt to ping Google's IPv6 Address from Jump Server
+  hosts: jump_svr
+  become: True
+  gather_facts: no
+  tasks:
+      - name:
+        command: /bin/ping6 2607:f8b0:4004:805::2004 -c5
+
+- name: Attempt to ssh to App Server from Jump Server over IPv6
+  hosts: jump_svr
+  become: True
+  gather_facts: no
+  tasks:
+      - name:
+        wait_for:
+          host: '2600:1f18:225a:9e02:6486:fc11:3c48:dffe'
+          port: 22
+          timeout: 5
+
+- name: Attempt to ping Google's IPv6 Address from App Server
+  hosts: app_svr
+  become: True
+  gather_facts: no
+  tasks:
+      - name:
+        command: /bin/ping6 2607:f8b0:4004:805::2004 -c5
+        ignore_errors: yes
+

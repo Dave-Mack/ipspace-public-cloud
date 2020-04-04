@@ -1,0 +1,7 @@
+web_svr ansible_host=ec2-52-0-117-233.compute-1.amazonaws.com ansible_port=22 ansible_user=ubuntu ansible_private_key_file=/home/vagrant/.ssh/pub-cloud
+jump_svr ansible_host=ec2-34-226-186-246.compute-1.amazonaws.com ansible_port=22 ansible_user=ubuntu ansible_private_key_file=/home/vagrant/.ssh/pub-cloud
+app_svr ansible_host=ip-172-16-2-36 ansible_port=22 ansible_user=ubuntu ansible_private_key_file=/home/vagrant/.ssh/pub-cloud ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -i /home/vagrant/.ssh/pub-cloud ubuntu@ec2-34-226-186-246.compute-1.amazonaws.com"'
+
+
+
+

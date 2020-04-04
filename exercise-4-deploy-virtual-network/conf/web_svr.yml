@@ -1,0 +1,32 @@
+- name: Configure webserver with Apache2 with SSI
+  hosts: localhost
+  become: True
+  tasks:
+    - name: install Apache2
+      apt: name=apache2 update_cache=yes
+    
+    - name: copy apache2.conf to /etc/apache2
+      copy: >
+        dest=/etc/apache2/apache2.conf
+        src=/tmp/ansible/apache2.conf
+    
+    - name: copy index.html to /var/www/html
+      copy: >
+        dest=/var/www/html/index.html
+        src=/tmp/ansible/index.html
+        mode=0755
+    
+    - name: enable Apache2 CGI Module
+      apache2_module: name=cgi
+    
+    - name: enable Apache2 Include Module
+      apache2_module: name=include
+    
+    - name: restart Apache2
+      service: name=apache2 state=restarted
+    
+    - name: cleanup temporary files
+      file: >
+        path=/tmp/ansible/
+        state=absent
+        

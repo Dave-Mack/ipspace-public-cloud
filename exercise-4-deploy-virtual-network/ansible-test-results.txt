@@ -1,0 +1,50 @@
+conf$ ansible-playbook -v -i ./hosts check.yml
+Using /vagrant/public-cloud/exercise4/conf/ansible.cfg as config file
+
+PLAY [Validate Public SSH on Web Server and Jump Server] *****************************************************************************************************************
+
+TASK [wait_for] **********************************************************************************************************************************************************
+ok: [web_svr] => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python"}, "changed": false, "elapsed": 0, "match_groupdict": {}, "match_groups": [], "path": null, "port": 22, "search_regex": null, "state": "started"}
+ok: [jump_svr] => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python"}, "changed": false, "elapsed": 0, "match_groupdict": {}, "match_groups": [], "path": null, "port": 22, "search_regex": null, "state": "started"}
+
+PLAY [Validate Web Server listening on Port 80] **************************************************************************************************************************
+
+TASK [wait_for] **********************************************************************************************************************************************************
+ok: [web_svr] => {"changed": false, "elapsed": 0, "match_groupdict": {}, "match_groups": [], "path": null, "port": 80, "search_regex": null, "state": "started"}
+
+PLAY [Private App Server is reachable vi Jump Server] ********************************************************************************************************************
+
+TASK [wait_for] **********************************************************************************************************************************************************
+ok: [app_svr] => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python"}, "changed": false, "elapsed": 0, "match_groupdict": {}, "match_groups": [], "path": null, "port": 22, "search_regex": null, "state": "started"}
+
+PLAY [Attempt to ping Cisco from App Server] *****************************************************************************************************************************
+
+TASK [command] ***********************************************************************************************************************************************************
+fatal: [app_svr]: FAILED! => {"changed": true, "cmd": ["/bin/ping", "www.cisco.com", "-c5"], "delta": "0:00:14.063157", "end": "2020-04-01 00:46:25.018527", "msg": "non-zero return code", "rc": 1, "start": "2020-04-01 00:46:10.955370", "stderr": "", "stderr_lines": [], "stdout": "PING e2867.dsca.akamaiedge.net (104.102.213.64) 56(84) bytes of data.\n\n--- e2867.dsca.akamaiedge.net ping statistics ---\n5 packets transmitted, 0 received, 100% packet loss, time 4031ms", "stdout_lines": ["PING e2867.dsca.akamaiedge.net (104.102.213.64) 56(84) bytes of data.", "", "--- e2867.dsca.akamaiedge.net ping statistics ---", "5 packets transmitted, 0 received, 100% packet loss, time 4031ms"]}
+...ignoring
+
+PLAY [Attempt to ping Google's IPv6 Address from Web Server] *************************************************************************************************************
+
+TASK [command] ***********************************************************************************************************************************************************
+changed: [web_svr] => {"changed": true, "cmd": ["/bin/ping6", "2607:f8b0:4004:805::2004", "-c5"], "delta": "0:00:04.011226", "end": "2020-04-01 00:46:32.647933", "rc": 0, "start": "2020-04-01 00:46:28.636707", "stderr": "", "stderr_lines": [], "stdout": "PING 2607:f8b0:4004:805::2004(2607:f8b0:4004:805::2004) 56 data bytes\n64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=1 ttl=51 time=1.18 ms\n64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=2 ttl=51 time=1.24 ms\n64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=3 ttl=51 time=1.22 ms\n64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=4 ttl=51 time=1.22 ms\n64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=5 ttl=51 time=1.22 ms\n\n--- 2607:f8b0:4004:805::2004 ping statistics ---\n5 packets transmitted, 5 received, 0% packet loss, time 4005ms\nrtt min/avg/max/mdev = 1.188/1.219/1.240/0.035 ms", "stdout_lines": ["PING 2607:f8b0:4004:805::2004(2607:f8b0:4004:805::2004) 56 data bytes", "64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=1 ttl=51 time=1.18 ms", "64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=2 ttl=51 time=1.24 ms", "64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=3 ttl=51 time=1.22 ms", "64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=4 ttl=51 time=1.22 ms", "64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=5 ttl=51 time=1.22 ms", "", "--- 2607:f8b0:4004:805::2004 ping statistics ---", "5 packets transmitted, 5 received, 0% packet loss, time 4005ms", "rtt min/avg/max/mdev = 1.188/1.219/1.240/0.035 ms"]}
+
+PLAY [Attempt to ping Google's IPv6 Address from Jump Server] ************************************************************************************************************
+
+TASK [command] ***********************************************************************************************************************************************************
+changed: [jump_svr] => {"changed": true, "cmd": ["/bin/ping6", "2607:f8b0:4004:805::2004", "-c5"], "delta": "0:00:04.010653", "end": "2020-04-01 00:46:37.125252", "rc": 0, "start": "2020-04-01 00:46:33.114599", "stderr": "", "stderr_lines": [], "stdout": "PING 2607:f8b0:4004:805::2004(2607:f8b0:4004:805::2004) 56 data bytes\n64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=1 ttl=50 time=1.21 ms\n64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=2 ttl=50 time=1.35 ms\n64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=3 ttl=50 time=1.24 ms\n64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=4 ttl=50 time=1.28 ms\n64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=5 ttl=50 time=1.30 ms\n\n--- 2607:f8b0:4004:805::2004 ping statistics ---\n5 packets transmitted, 5 received, 0% packet loss, time 4005ms\nrtt min/avg/max/mdev = 1.219/1.280/1.354/0.061 ms", "stdout_lines": ["PING 2607:f8b0:4004:805::2004(2607:f8b0:4004:805::2004) 56 data bytes", "64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=1 ttl=50 time=1.21 ms", "64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=2 ttl=50 time=1.35 ms", "64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=3 ttl=50 time=1.24 ms", "64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=4 ttl=50 time=1.28 ms", "64 bytes from 2607:f8b0:4004:805::2004: icmp_seq=5 ttl=50 time=1.30 ms", "", "--- 2607:f8b0:4004:805::2004 ping statistics ---", "5 packets transmitted, 5 received, 0% packet loss, time 4005ms", "rtt min/avg/max/mdev = 1.219/1.280/1.354/0.061 ms"]}
+
+PLAY [Attempt to ssh to App Server from Jump Server over IPv6] ***********************************************************************************************************
+
+TASK [wait_for] **********************************************************************************************************************************************************
+ok: [jump_svr] => {"changed": false, "elapsed": 0, "match_groupdict": {}, "match_groups": [], "path": null, "port": 22, "search_regex": null, "state": "started"}
+
+PLAY [Attempt to ping Google's IPv6 Address from App Server] *************************************************************************************************************
+
+TASK [command] ***********************************************************************************************************************************************************
+fatal: [app_svr]: FAILED! => {"changed": true, "cmd": ["/bin/ping6", "2607:f8b0:4004:805::2004", "-c5"], "delta": "0:00:14.036362", "end": "2020-04-01 00:46:49.026691", "msg": "non-zero return code", "rc": 1, "start": "2020-04-01 00:46:34.990329", "stderr": "", "stderr_lines": [], "stdout": "PING 2607:f8b0:4004:805::2004(2607:f8b0:4004:805::2004) 56 data bytes\n\n--- 2607:f8b0:4004:805::2004 ping statistics ---\n5 packets transmitted, 0 received, 100% packet loss, time 4032ms", "stdout_lines": ["PING 2607:f8b0:4004:805::2004(2607:f8b0:4004:805::2004) 56 data bytes", "", "--- 2607:f8b0:4004:805::2004 ping statistics ---", "5 packets transmitted, 0 received, 100% packet loss, time 4032ms"]}
+...ignoring
+
+PLAY RECAP ***************************************************************************************************************************************************************
+app_svr                    : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=2
+jump_svr                   : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+web_svr                    : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
